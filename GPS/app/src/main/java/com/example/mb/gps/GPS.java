@@ -25,25 +25,13 @@ public class GPS extends AppCompatActivity {
 
 
     Location location;
-    Location[] localist = new Location[30];
+    public static Location[] localist = new Location[30];
     LocationListener localistener;
     int ind;
     LocationManager locationManager;
-
-
-    public Location getLocation()
-    {
-        try
-        {
-            locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,localistener);
-        }
-        catch (Exception e)
-        {
-
-        }
-        return location;
-    }
+    TextView t1;
+    boolean act = false;
+    Button start;
 
 
 
@@ -52,44 +40,58 @@ public class GPS extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps);
 
-        final Button start = (Button) findViewById(R.id.start_button);
-        getLocation();
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+
+        start = (Button) findViewById(R.id.start_button);
+        t1= (TextView) findViewById(R.id.textView2);
+
+
 
         start.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 if (start.getText() == "Start Tracking") {
                     start.setText("Stop Tracking");
-                    localistener = new LocationListener() {
-                        @Override
-                        public void onLocationChanged(Location location) {
-                            localist[ind]=location;
-                            Log.d("loca", localist[ind].toString());
-                            ind++;
-                            if(ind==30)
-                            {
-                                ind=0;
+                    try {
+                        localistener = new LocationListener() {
+                            public void onLocationChanged(Location location) {
+                                localist[ind] = location;
+                                ind++;
+                                if (ind == 30) {
+                                    ind = 0;
+                                }
+
                             }
-                        }
 
-                        @Override
-                        public void onStatusChanged(String provider, int status, Bundle extras) {
+                            @Override
+                            public void onStatusChanged(String provider, int status, Bundle extras) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onProviderEnabled(String provider) {
+                            @Override
+                            public void onProviderEnabled(String provider) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onProviderDisabled(String provider) {
+                            @Override
+                            public void onProviderDisabled(String provider) {
 
-                        }
-                    };
+                            }
+                        };
+                    }
+                    catch (Exception e)
+                    {
+                        Log.e("EFG","falbala");
+                    }
+                    try {
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, localistener);
+                    }
+                    catch (Exception e)
+                    {}
                 }
                 else{
                     start.setText("Start Tracking");
+                    act = false;
                     for(int i =0 ; i < 30; i++)
                     {
                         localist[i] = null;

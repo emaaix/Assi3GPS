@@ -46,15 +46,23 @@ public class Graph extends View {
         can.drawRect(0, 0, size, size, paint);
         paint.setColor(Color.WHITE);
         can.drawLine(0, 0, size, 0, paint);
-        Paint paint2 = new Paint();
-        paint2.setColor(Color.WHITE);
-        can.drawLine(0, 121, size, 121, paint2);
+        can.drawLine(0, 121, size, 121, paint);
         can.drawLine(0,240,size, 240,paint);
         can.drawLine(0,360,size, 360,paint);
         can.drawLine(0,481,size, 481,paint);
         can.drawLine(0,600,size, 600,paint);
-        can.drawLine(0,719,size, 719,paint);
+        can.drawLine(0, 719, size, 719, paint);
         super.onDraw(can);
-
+        Paint paint2 = new Paint();
+        paint2.setColor(Color.GREEN);
+      /*  for(int i= 0; i<30; i++)
+        {
+            int tail = 0;
+            if (GPS.localist[i] != null && GPS.localist[i+1]!=null && tail <= 696)
+            {
+                can.drawLine(tail,(GPS.localist[i].getSpeed()*720)/60,tail+24,(GPS.localist[i+1].getSpeed()*720)/60,paint2);
+                tail = tail+24;
+            }
+        }*/
     }
 }
