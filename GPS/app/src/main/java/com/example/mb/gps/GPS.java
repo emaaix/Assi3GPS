@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,8 +23,29 @@ import android.widget.TextView;
 
 public class GPS extends AppCompatActivity {
 
-    private LocationManager lm; // the location manager to get access to the gps stuff
-    private Location l; // the location that we will get from the gps provider
+
+    Location location;
+    Location[] localist = new Location[30];
+    LocationListener localistener;
+    int ind;
+    LocationManager locationManager;
+
+
+    public Location getLocation()
+    {
+        try
+        {
+            locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,localistener);
+        }
+        catch (Exception e)
+        {
+
+        }
+        return location;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,50 +53,48 @@ public class GPS extends AppCompatActivity {
         setContentView(R.layout.activity_gps);
 
         final Button start = (Button) findViewById(R.id.start_button);
-
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        final LocationListener localist = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-        };
+        getLocation();
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (start.getText() == "Start Tracking") {
                     start.setText("Stop Tracking");
-                    /*String locationProvider = LocationManager.GPS_PROVIDER;
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return;
-                    }
-                    lm.requestLocationUpdates(locationProvider, 0, 0, localist);*/
+                    localistener = new LocationListener() {
+                        @Override
+                        public void onLocationChanged(Location location) {
+                            localist[ind]=location;
+                            Log.d("loca", localist[ind].toString());
+                            ind++;
+                            if(ind==30)
+                            {
+                                ind=0;
+                            }
+                        }
+
+                        @Override
+                        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                        }
+
+                        @Override
+                        public void onProviderEnabled(String provider) {
+
+                        }
+
+                        @Override
+                        public void onProviderDisabled(String provider) {
+
+                        }
+                    };
                 }
                 else{
                     start.setText("Start Tracking");
+                    for(int i =0 ; i < 30; i++)
+                    {
+                        localist[i] = null;
+                    }
+                    ind = 0;
                 }
             }
         });
@@ -103,4 +123,6 @@ public class GPS extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
