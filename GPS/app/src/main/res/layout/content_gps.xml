@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.mb.gps.GPS"
-    tools:showIn="@layout/activity_gps">
+    android:gravity="bottom"
+    android:backgroundTint="#a89d9d"
+    android:background="#c0adad"
+    android:id="@+id/malay">
 
-    <include layout="@layout/buttons"
-        android:layout_height="match_parent"
+    <com.example.mb.gps.Graph
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        android:id="@+id/lala"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GPS Inactive"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/lala" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Speed : N/A"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView4"  />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Average Speed : N/A"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView3"  />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Overall Time : 0s"
+        android:id="@+id/textView"
+        android:layout_below="@+id/textView2" />
+
+    <Button
         android:layout_width="match_parent"
-        android:layout_marginBottom="50dp"
-        />
-
-
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="Start Tracking"
+        android:id="@+id/start_button"
+        android:layout_below="@id/textView"
+        android:isScrollContainer="false" />
+</RelativeLayout>
