@@ -54,8 +54,11 @@ public class GPS extends AppCompatActivity {
                     start.setText("Stop Tracking");
                     try {
                         localistener = new LocationListener() {
+
+                            @Override
                             public void onLocationChanged(Location location) {
                                 localist[ind] = location;
+                                t1.setText(localist[ind].toString());
                                 ind++;
                                 if (ind == 30) {
                                     ind = 0;

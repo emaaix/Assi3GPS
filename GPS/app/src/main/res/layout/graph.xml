@@ -6,6 +6,6 @@
     android:layout_height="360dp">
 
 <com.example.mb.gps.Graph
-    android:layout_width="360dp"
-    android:layout_height="360dp" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 </LinearLayout>

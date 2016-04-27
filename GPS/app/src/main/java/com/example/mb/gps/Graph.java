@@ -30,8 +30,7 @@ public class Graph extends View {
         {
             this.size = x;
         }
-        else
-        {
+        else {
             this.size = y;
         }
     }
@@ -40,29 +39,27 @@ public class Graph extends View {
 
     public void onDraw(Canvas can)
     {
-        size = 720;
+        super.onDraw(can);
         paint = new Paint();
         paint.setColor(Color.BLACK);
         can.drawRect(0, 0, size, size, paint);
         paint.setColor(Color.WHITE);
-        can.drawLine(0, 0, size, 0, paint);
-        can.drawLine(0, 121, size, 121, paint);
-        can.drawLine(0,240,size, 240,paint);
-        can.drawLine(0,360,size, 360,paint);
-        can.drawLine(0,481,size, 481,paint);
-        can.drawLine(0,600,size, 600,paint);
-        can.drawLine(0, 719, size, 719, paint);
-        super.onDraw(can);
+        can.drawLine(0, 1, size, 1, paint);
+        can.drawLine(0, size-(5*size/6), size, size-(5*size/6), paint);
+        can.drawLine(0,size-(4*size/6),size, size-(4*size/6),paint);
+        can.drawLine(0,(size-(3*size/6))+4,size, (size-(3*size/6))+4,paint);
+        can.drawLine(0,size-(2*size/6),size, size-(2*size/6),paint);
+        can.drawLine(0,(size-(size/6))+1,size, (size-(size/6))+1,paint);
+        can.drawLine(0, size - 1, size, size - 1, paint);
         Paint paint2 = new Paint();
         paint2.setColor(Color.GREEN);
-      /*  for(int i= 0; i<30; i++)
+        for(int i= 0; i<29; i++)
         {
-            int tail = 0;
-            if (GPS.localist[i] != null && GPS.localist[i+1]!=null && tail <= 696)
+            if (GPS.localist[i] != null && GPS.localist[i+1]!=null)
             {
-                can.drawLine(tail,(GPS.localist[i].getSpeed()*720)/60,tail+24,(GPS.localist[i+1].getSpeed()*720)/60,paint2);
-                tail = tail+24;
+                can.drawLine((size/30)*i,size - (GPS.localist[i].getSpeed()*size)/60,(size/30)*(i+1),size-(GPS.localist[i+1].getSpeed()*size)/60,paint2);
             }
-        }*/
+        }
+        invalidate();
     }
 }
